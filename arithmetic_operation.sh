@@ -1,6 +1,7 @@
-#! /bin/bash -x
+#! /bin/bash
 
 read -p "Enter three Numbers: " a b c
 echo "$a $b $c";
 operation1=`echo "scale=2;($a+($b*$c))" | bc`;
-echo "$operation1"
+operation2=`echo "scale=2;(($a*$b)+$c)" | bc`;
+printf "Value of opr1: $operation1\nValue of opr2: $operation2\n"
