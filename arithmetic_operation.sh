@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash  
 
 read -p "Enter three Numbers: " a b c
 declare -A Operations 
@@ -12,9 +12,48 @@ function dictionary_to_array()
 	done
 }
 
-Operations["operation1"]="`echo "scale=2;($a+($b*$c))" | bc`"
-Operations["operation2"]="`echo "scale=2;(($a*$b)+$c)" | bc`"
-Operations["operation3"]="`echo "scale=2;($c+($a/$b))" | bc`"
-Operations["operation4"]="`echo "scale=2;(($a%$b)+$c)" | bc`"
+function descending_Sort()
+{
+for (( i=0; i<$length; i++ ))
+do
+   for (( j=i+1; j<=$length; j++))
+   do
+      if [[ ${arr[i]%.*} -lt ${arr[j]%.*} ]]
+      then
+      temp=${arr[i]};
+      arr[i]=${arr[j]};
+      arr[j]=$temp;
+      fi
+   done
+done
+}
+
+function ascending_Sort()
+{
+for (( i=0; i<$length; i++ ))
+do
+   for (( j=i+1; j<=$length; j++))
+   do
+      if [[ ${arr[i]%.*} -gt ${arr[j]%.*} ]]
+      then
+      temp=${arr[i]};
+      arr[i]=${arr[j]};
+      arr[j]=$temp;
+      fi
+   done
+done
+}
+
+Operations["operation1"]="`echo "scale=2;($a+$b*$c)" | bc`"
+Operations["operation2"]="`echo "scale=2;($a*$b+$c)" | bc`"
+Operations["operation3"]="`echo "scale=2;($c+$a/$b)" | bc`"
+Operations["operation4"]="`echo "scale=2;($a%$b+$c)" | bc`"
 dictionary_to_array 
+length=${#arr[@]}
+echo "Array in Descending order: "
+descending_Sort
 printf "value of opr1: ${arr[0]}\nvalue of opr2: ${arr[1]}\nvalue of opr3: ${arr[2]}\nvalue of opr4: ${arr[3]}\n"
+echo "Array in Ascending order: "
+ascending_Sort
+printf "value of opr1: ${arr[1]}\nvalue of opr2: ${arr[2]}\nvalue of opr3: ${arr[3]}\nvalue of opr4: ${arr[4]}\n"
+
